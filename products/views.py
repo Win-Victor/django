@@ -1,10 +1,16 @@
 from django.shortcuts import render
+from datetime import datetime
+
 
 # Create your views here.
 
 def index(request):
-    context = {'title': "Geekshop"}
+    context = {
+        'title': "Geekshop",
+        'date': datetime.now(),
+    }
     return render(request, 'products/index.html', context)
+
 
 products_list = [
     {
@@ -45,8 +51,9 @@ products_list = [
     }
 ]
 
+
 def products(request):
     context = {'title': "Geekshop - Каталог",
-               'products': products_list}
+               'products': products_list,
+               }
     return render(request, 'products/products.html', context)
-
