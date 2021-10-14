@@ -6,6 +6,7 @@ import json
 # Create your views here.
 MODULE_DIR = os.path.dirname(__file__)
 
+
 def index(request):
     context = {
         'title': "Geekshop",
