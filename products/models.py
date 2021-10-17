@@ -23,4 +23,4 @@ class Product(models.Model):
 
     # ForeignKey - ключ к таблице ProductCategory, действия при удалении (/ SET_NULL / )
     def __str__(self):
-        return f'{self.name} | {self.category.name}'
+        return f'{self.name} | {self.category.name} | {self.image}'
