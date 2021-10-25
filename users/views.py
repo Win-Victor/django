@@ -49,9 +49,6 @@ def profile(request):
     else:
         form = UserProfileForm(instance=user)
 
-    total_quantity = 0
-    total_sum = 0
-
     context = {
         'title': 'GeekShop - Профиль',
         'form': form,
