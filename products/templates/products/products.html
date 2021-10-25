@@ -74,7 +74,9 @@
                             <p class="card-text">{{ item.description }}</p>
                         </div>
                         <div class="card-footer text-center">
+                            <p>на складе осталось {{ item.quantity }} шт.  {# добавить вычисление item.quantity - basket.quantity #}</p>
                             <a class="btn btn-outline-success" href="{% url 'baskets:basket_add' item.id %}">Отправить в корзину</a>
+{#                            <p>{{ 2 }}шт.</p> - добавить рассчет количество товара в корзине #}
                         </div>
                     </div>
                 </div>
