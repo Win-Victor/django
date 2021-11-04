@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
+from django.views.generic.list import ListView
 from django.contrib.auth.decorators import user_passes_test
 from users.models import User
 from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm
@@ -24,13 +25,18 @@ def admin_users_create(request):
     return render(request, 'admins/admin-users-create.html', context)
 
 
-@user_passes_test(lambda u: u.is_staff)
-def admin_users(request):
-    context = {
-        'title': 'GeekShop - Пользователи',
-        'users': User.objects.all()
-    }
-    return render(request, 'admins/admin-users-read.html', context)
+class UserListView(ListView):
+    model = User
+    template_name = 'admins/admin-users-read.html'
+
+
+# @user_passes_test(lambda u: u.is_staff)
+# def admin_users(request):
+#     context = {
+#         'title': 'GeekShop - Пользователи',
+#         'users': User.objects.all()
+#     }
+#     return render(request, 'admins/admin-users-read.html', context)
 
 
 @user_passes_test(lambda u: u.is_staff)
