@@ -20,6 +20,38 @@ class UserCreateView(CreateView):
     template_name = 'admins/admin-users-create.html'
 
 
+class UserListView(ListView):
+    model = User
+    template_name = 'admins/admin-users-read.html'
+
+
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = UserAdminProfileForm
+    template_name = 'admins/admin-users-update-delete.html'
+    success_url = reverse_lazy('admins:admin_users')
+
+
+class UserDeleteView(DeleteView):
+    model = User
+    template_name = 'admins/admin-users-update-delete.html'
+    success_url = reverse_lazy('admins:admin_users')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.safe_delete()
+        return HttpResponseRedirect(success_url)
+
+# @user_passes_test(lambda u: u.is_staff)
+# def admin_users(request):
+#     context = {
+#         'title': 'GeekShop - Пользователи',
+#         'users': User.objects.all()
+#     }
+#     return render(request, 'admins/admin-users-read.html', context)
+
+
 # @user_passes_test(lambda u: u.is_staff)
 # def admin_users_create(request):
 #     if request.method == 'POST':
@@ -31,27 +63,6 @@ class UserCreateView(CreateView):
 #         form = UserAdminRegistrationForm()
 #     context = {'title': 'GeekShop - Создание пользователей', 'form': form}
 #     return render(request, 'admins/admin-users-create.html', context)
-
-
-class UserListView(ListView):
-    model = User
-    template_name = 'admins/admin-users-read.html'
-
-
-# @user_passes_test(lambda u: u.is_staff)
-# def admin_users(request):
-#     context = {
-#         'title': 'GeekShop - Пользователи',
-#         'users': User.objects.all()
-#     }
-#     return render(request, 'admins/admin-users-read.html', context)
-
-
-class UserUpdateView(UpdateView):
-    model = User
-    form_class = UserAdminProfileForm
-    template_name = 'admins/admin-users-update-delete.html'
-    success_url = reverse_lazy('admins:admin_users')
 
 
 # @user_passes_test(lambda u: u.is_staff)
@@ -66,13 +77,6 @@ class UserUpdateView(UpdateView):
 #         form = UserAdminProfileForm(instance=selected_user)
 #     context = {'title': 'GeekShop - Обновление пользователя', 'form': form, 'selected_user': selected_user}
 #     return render(request, 'admins/admin-users-update-delete.html', context)
-
-
-class UserDeleteView(DeleteView):
-    model = User
-    template_name = 'admins/admin-users-update-delete.html'
-    success_url = reverse_lazy('admins:admin_users')
-
 
 
 # @user_passes_test(lambda u: u.is_staff)
